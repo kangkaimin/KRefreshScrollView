@@ -11,16 +11,18 @@ Page({
 
   },
   startRefresh() {
+    console.log("开始刷新")
     this.theRefreshView = this.selectComponent("#theRefreshView");
     let that = this;
 
     setTimeout(() => {
+      console.log("刷新完成")
       that.theRefreshView.finishRefresh();
     }, 3000);
   },
   startLoadMore() {
-    this.theRefreshView = this.selectComponent("#theRefreshView");
-    console.log("startLoadMorestartLoadMorestartLoadMorestartLoadMore")
+    this.theRefreshView = this.selectComponent("#theRefreshView"); 
+    console.log("开始加载更多")
   }
 
 })

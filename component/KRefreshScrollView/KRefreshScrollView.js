@@ -58,9 +58,6 @@ Component({
       query.select('#refreshParent').boundingClientRect();
       query.exec(function (res) {
 
-        console.log("res[0].top  --- " + res[0].top)
-        console.log("that.data.loadViewHeight  --- " + that.data.loadViewHeight)
-
         if (res[0].top < that.data.originalMarginTop) {
           that.setData({
             listenRefresh: true

@@ -9,9 +9,7 @@ function listenRefreshObserver(newValue, oldValue, ownerInstance, instance) {
   canOperate = newValue;
 }
 
-function touchstart(event, ownerInstance) {
-
-  console.log("KRefreshScrollView ----------- ")
+function touchstart(event, ownerInstance) { 
 
   if (!canOperate) {
     return true;
