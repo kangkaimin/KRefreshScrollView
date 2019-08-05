@@ -1,0 +1,22 @@
+<wxs module="index" src="./KRefreshScrollView.wxs"></wxs>
+
+<view style="height:{{KHeight}}px;">
+
+  <!-- 负责 “下拉刷新” 的View -->
+  <view id="refreshTitle" style="background:#0081ff;top:0px;width:100%;height:0px;text-align: center; line-height: {{loadViewHeight}}px;overflow:hidden" animation="{{ani}}">
+    {{refreshTitle}}
+  </view>
+
+  <scroll-view id="refreshParent" style="height:100%;" change:listenRefresh="{{index.listenRefreshObserver}}" bindtouchstart='{{index.touchstart}}' bindtouchmove='{{index.touchmove}}' scroll-y="{{true}}" throttle="{{false}}" upper-threshold="{{0}}" bindscrolltoupper="scrolltoupper"
+    bindscrolltolower="_startLoadMore" bindtouchend='touchend'>
+
+    <slot>
+    </slot>
+
+    <!-- 负责 “上拉加载更多” 的View -->
+    <view wx:if="{{loadMoreAble}}" style="background:#8799a3;width:100%;height:50px;text-align: center; line-height:50px;overflow:hidden">
+      {{loadMoreTitle}}
+    </view>
+
+  </scroll-view>
+</view>

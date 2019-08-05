@@ -1,0 +1,83 @@
+var REFRESHVIEW_HEIGHT = 100; // 刷新界面的高度，需要和 js 中的对齐,WXS 无法使用 require 引用 .js 文件
+var theTitleView;
+
+var startTouchTop = 0;
+var hasMove = 0; // 已经移动的距离，负责判断是不是在顶端  
+var canOperate = true;
+
+function listenRefreshObserver(newValue, oldValue, ownerInstance, instance) {
+  canOperate = newValue;
+}
+
+function touchstart(event, ownerInstance) {
+
+  console.log("KRefreshScrollView ----------- ")
+
+  if (!canOperate) {
+    return true;
+  }
+
+  theTitleView = ownerInstance.selectComponent('#refreshTitle');
+
+  var bound = event.touches[0];
+  var _x = bound.pageX;
+  _x = 0;
+  var _y = bound.pageY;
+
+  startTouchTop = _y;
+
+  theTitleView.setStyle({
+    'height': 0 + 'px',
+  });
+  return true;
+}
+
+function touchmove(event, ownerInstance) {
+
+  if (!canOperate) {
+    return true;
+  }
+
+  var bound = event.touches[0];
+  var _y = bound.pageY;
+
+  // 已经移动的距离
+  hasMove = (_y - startTouchTop);
+
+  theTitleView.setStyle({
+    'height': hasMove + 'px',
+    'line-height': (hasMove > REFRESHVIEW_HEIGHT ? REFRESHVIEW_HEIGHT : hasMove) + 'px',
+    'opacity': (hasMove / REFRESHVIEW_HEIGHT)
+  });
+
+  return true;
+}
+
+function touchend(event, ownerInstance) {
+  var bound = event.changedTouches[0];
+
+  var boundX = bound.pageX;
+  var boundY = bound.pageY;
+
+  var times = Math.min(boundX, boundY);
+  var distanceX = boundX / times;
+  var distanceY = boundY / times;
+
+}
+
+function isReady() {
+  return "isReady";
+}
+
+function bar() {
+  return "bar";
+}
+
+module.exports = {
+  touchmove: touchmove,
+  touchend: touchend,
+  touchstart: touchstart,
+  listenRefreshObserver: listenRefreshObserver,
+  bar: bar,
+  isReady: isReady
+}
