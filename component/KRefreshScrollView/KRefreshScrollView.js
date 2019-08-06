@@ -27,12 +27,15 @@ Component({
       value: true,
     }
   },
+  options: {
+    addGlobalClass: true,
+  },
 
   data: {
     loadViewHeight: REFRESHVIEW_HEIGHT, // 需要和 wxs 中对齐
     timeFor100: TIME4100, // 移动100px花费的时间
     refreshTitle: REFRESHTITLE_READY,
-    loadMoreTitle: LOADMORETITLE_LOADING,
+    loadMoreTitle: LOADMORETITLE_NOMORE,
     originalMarginTop: 0, // 原始高度 
     loadMoreAble: true,
     isNoMore: false,
@@ -122,36 +125,20 @@ Component({
      * =================================================== 上拉加载更多 start =========================================================
      */
     // 调用通过 startRefresh 绑定的方法
-    _startLoadMore() {
+    _startLoadMore() { 
 
-      if (isNoMore && !loadMoreAble) {
+      if (this.data.isNoMore || !this.data.loadMoreAble) {
         return
       }
 
-      // if (this.triggerEvent('startLoadMore', {})) {
-      //   this.setData({
-      //     loadMoreTitle: LOADMORETITLE_LOADING
-      //   });
-      // } else {
-      //   this.setData({
-      //     loadMoreTitle: LOADMORETITLE_NOMORE
-      //   });
-      // }
       this.triggerEvent('startLoadMore', {})
     },
 
-    noMore(isNoMore) {
-      if (isNoMore) {
-        this.setData({
-          loadMoreTitle: LOADMORETITLE_NOMORE,
-          isNoMore: isNoMore
-        });
-      } else {
-        this.setData({
-          loadMoreTitle: LOADMORETITLE_LOADING,
-          isNoMore: isNoMore
-        });
-      }
+    noMore(value) { 
+      this.setData({
+        loadMoreTitle: value ? LOADMORETITLE_NOMORE : LOADMORETITLE_LOADING,
+        isNoMore: value
+      }); 
     },
 
     canLoadMore(able) {
