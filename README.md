@@ -7,6 +7,8 @@ KRefreshScrollView 并不是真正的 scroll-view ，而是一个普通的Compon
 
 主要实现下拉刷新，上拉加载更多功能较弱，可根据需求二次开发。
 
+![](https://github.com/kangkaimin/KRefreshScrollView/blob/master/images/show.gif) 
+
 
 
 # 代码片段
@@ -62,6 +64,10 @@ KRefreshScrollView 并不是真正的 scroll-view ，而是一个普通的Compon
 >**canLoadMore**：加载更多是否可用
 
 >**finishRefresh**：刷新完成，收起下拉界面
+
+
+# 一毛也能兴奋一整天，滋滋滋滋
+![](https://github.com/kangkaimin/KRefreshScrollView/blob/master/images/ali.jpg) 
 
 
 
