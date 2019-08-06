@@ -25,11 +25,11 @@ KRefreshScrollView 并不是真正的 scroll-view ，而是一个普通的Compon
 # 使用
 ```
 <KRefreshScrollView id="theRefreshView" 
-bindstartRefresh="startRefresh" 
-bindstartLoadMore="startLoadMore" 
-KHeight="{{pageHeight}}" 
-CanRefresh="{{false}}" 
-CanLoadMore="{{false}}">
+ bindstartRefresh="startRefresh" 
+ bindstartLoadMore="startLoadMore" 
+ KHeight="{{pageHeight}}" 
+ CanRefresh="{{false}}" 
+ CanLoadMore="{{false}}">
 
   <view wx:for="{{arr}}" wx:key>
     <view style="background:#fbbd08;width:100%;height:100px;text-align: center; line-height: 100px;border-bottom: 8rpx solid #eee;">
@@ -65,3 +65,4 @@ CanLoadMore="{{false}}">
 
 
 
+ 
