@@ -7,7 +7,7 @@
     {{refreshTitle}}
   </view>
 
-  <scroll-view id="refreshParent" style="height:100%;" change:canRefresh="{{index.canRefreshObserver}}" canRefresh="{{canRefresh}}" bindtouchstart='{{index.touchstart}}' bindtouchmove='{{index.touchmove}}' scroll-y="{{true}}" throttle="{{false}}" upper-threshold="{{0}}" bindscrolltoupper="scrolltoupper"
+  <scroll-view id="refreshParent" style="height:100%;" change:canRefresh="{{index.canRefreshObserver}}" canRefresh="{{canRefresh}}"  change:refreshHeight="{{index.refreshHeightObserver}}" refreshHeight="{{refreshHeight}}" bindtouchstart='{{index.touchstart}}' bindtouchmove='{{index.touchmove}}' scroll-y="{{true}}" throttle="{{false}}" upper-threshold="{{0}}" bindscrolltoupper="scrolltoupper"
     bindscrolltolower="_startLoadMore" bindtouchend='touchend'>
 
     <slot>

@@ -35,7 +35,8 @@ Component({
     loadMoreTitle: LOADMORETITLE_LOADING,
     originalMarginTop: 0, // 原始高度 
     loadMoreAble: true,
-    canRefresh: true
+    canRefresh: true,
+    refreshHeight: REFRESHVIEW_HEIGHT
 
   },
   lifetimes: {

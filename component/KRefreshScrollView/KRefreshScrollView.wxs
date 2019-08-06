@@ -1,15 +1,20 @@
-var REFRESHVIEW_HEIGHT = 100; // 刷新界面的高度，需要和 js 中的对齐,WXS 无法使用 require 引用 .js 文件
 var theTitleView;
 
 var startTouchTop = 0;
 var hasMove = 0; // 已经移动的距离，负责判断是不是在顶端  
 var canOperate = true;
+var refreshHeight = 100;
 
 function canRefreshObserver(newValue, oldValue, ownerInstance, instance) { 
   if (newValue != undefined) {
-    canOperate = newValue;
-    console.log("listenRefreshObserver -------------- " + newValue)
+    canOperate = newValue; 
   } 
+}
+
+function refreshHeightObserver(newValue, oldValue, ownerInstance, instance) {
+  if (newValue != undefined) { 
+    refreshHeight = newValue;
+  }
 }
 
 function touchstart(event, ownerInstance) { 
@@ -47,8 +52,8 @@ function touchmove(event, ownerInstance) {
 
   theTitleView.setStyle({
     'height': hasMove + 'px',
-    'line-height': (hasMove > REFRESHVIEW_HEIGHT ? REFRESHVIEW_HEIGHT : hasMove) + 'px',
-    'opacity': (hasMove / REFRESHVIEW_HEIGHT)
+    'line-height': (hasMove > refreshHeight ? refreshHeight : hasMove) + 'px',
+    'opacity': (hasMove / refreshHeight)
   });
 
   return true;
@@ -79,6 +84,7 @@ module.exports = {
   touchend: touchend,
   touchstart: touchstart,
   canRefreshObserver: canRefreshObserver,
+  refreshHeightObserver: refreshHeightObserver,
   bar: bar,
   isReady: isReady
 }
