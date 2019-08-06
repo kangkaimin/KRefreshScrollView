@@ -13,7 +13,7 @@ KRefreshScrollView 并不是真正的 scroll-view ，而是一个普通的Compon
 
 # 代码片段
 
-可直接运行，[点击打开](https://developers.weixin.qq.com/s/gH5Z6qm87cao)
+可直接运行，[点击打开](https://developers.weixin.qq.com/s/3b7knqmj7dax)
 
 
 
