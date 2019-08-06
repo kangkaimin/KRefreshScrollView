@@ -5,8 +5,11 @@ var startTouchTop = 0;
 var hasMove = 0; // 已经移动的距离，负责判断是不是在顶端  
 var canOperate = true;
 
-function listenRefreshObserver(newValue, oldValue, ownerInstance, instance) {
-  canOperate = newValue;
+function canRefreshObserver(newValue, oldValue, ownerInstance, instance) { 
+  if (newValue != undefined) {
+    canOperate = newValue;
+    console.log("listenRefreshObserver -------------- " + newValue)
+  } 
 }
 
 function touchstart(event, ownerInstance) { 
@@ -75,7 +78,7 @@ module.exports = {
   touchmove: touchmove,
   touchend: touchend,
   touchstart: touchstart,
-  listenRefreshObserver: listenRefreshObserver,
+  canRefreshObserver: canRefreshObserver,
   bar: bar,
   isReady: isReady
 }

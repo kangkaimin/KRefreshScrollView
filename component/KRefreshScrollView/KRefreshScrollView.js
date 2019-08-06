@@ -18,6 +18,14 @@ Component({
       type: Number,
       value: -1,
     },
+    CanRefresh: {
+      type: Boolean,
+      value: true,
+    },
+    CanLoadMore: {
+      type: Boolean,
+      value: true,
+    }
   },
 
   data: {
@@ -25,28 +33,34 @@ Component({
     timeFor100: TIME4100, // 移动100px花费的时间
     refreshTitle: REFRESHTITLE_READY,
     loadMoreTitle: LOADMORETITLE_LOADING,
-    originalMarginTop: 0,// 原始高度
-    listenRefresh: true,
-    loadMoreAble: true
+    originalMarginTop: 0, // 原始高度 
+    loadMoreAble: true,
+    canRefresh: true
 
   },
   lifetimes: {
     ready: function () {
       var that = this;
+
+      this.setData({
+        loadMoreAble: that.properties.CanLoadMore,
+        canRefresh: that.properties.CanRefresh
+      });
+
       var query = that.createSelectorQuery();
       query.select('#refreshParent').boundingClientRect();
-      query.exec(function (res) {
+      query.exec(function(res) {
         // 配置原始高度
         that.data.originalMarginTop = res[0].top;
       })
     },
-    attached: function () {
-      if (this.data.KHeight > 0) { } else {
+    attached: function() {
+      if (this.data.KHeight > 0) {} else {
         throw new Error('KRefreshScrollView 必须要通过 KHeight 设置一个 >0 的高度，以配合scroll-view使用，否则无法触发scroll-view 的 bindscrolltoupper 和 bindscroll 方法');
       }
     },
-    moved: function () { },
-    detached: function () { },
+    moved: function() {},
+    detached: function() {},
   },
 
   methods: {
@@ -56,19 +70,13 @@ Component({
       var query = that.createSelectorQuery();
 
       query.select('#refreshParent').boundingClientRect();
-      query.exec(function (res) {
+      query.exec(function(res) {
 
         if (res[0].top < that.data.originalMarginTop) {
-          that.setData({
-            listenRefresh: true
-          });
           return;
         }
 
         if (res[0].top === that.data.originalMarginTop) {
-          that.setData({
-            listenRefresh: true
-          });
           return;
         }
 
@@ -171,11 +179,6 @@ Component({
         });
       }, delay);
 
-    },
-    scrolltoupper() {
-      this.setData({
-        listenRefresh: true
-      });
     },
   }
 

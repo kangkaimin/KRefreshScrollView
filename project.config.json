@@ -13,13 +13,12 @@
 		"coverView": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.8.0",
-	"appid": "wx8d4b7d6a5a706044",
-	"projectname": "KRefreshView",
+	"libVersion": "2.7.7",
+	"appid": "touristappid",
+	"projectname": "KRefreshScrollView2",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
-	"isGameTourist": false,
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"condition": {
