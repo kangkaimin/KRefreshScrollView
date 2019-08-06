@@ -1,7 +1,7 @@
 var theTitleView;
 
-var startTouchTop = 0;
-var hasMove = 0; // 已经移动的距离，负责判断是不是在顶端  
+var startTouchY = 0, startTouchX = 0;
+var hasMoveY = 0,hasMoveX = 0;  
 var canOperate = true;
 var refreshHeight = 100;
 
@@ -26,11 +26,11 @@ function touchstart(event, ownerInstance) {
   theTitleView = ownerInstance.selectComponent('#refreshTitle');
 
   var bound = event.touches[0];
-  var _x = bound.pageX;
-  _x = 0;
+  var _x = bound.pageX; 
   var _y = bound.pageY;
 
-  startTouchTop = _y;
+  startTouchY = _y;
+  startTouchX = _x;
 
   theTitleView.setStyle({
     'height': 0 + 'px',
@@ -46,17 +46,23 @@ function touchmove(event, ownerInstance) {
 
   var bound = event.touches[0];
   var _y = bound.pageY;
+  var _x = bound.pageX; 
 
   // 已经移动的距离
-  hasMove = (_y - startTouchTop);
+  hasMoveY = (_y - startTouchY);
+  hasMoveX = (_x - startTouchX); 
 
-  theTitleView.setStyle({
-    'height': hasMove + 'px',
-    'line-height': (hasMove > refreshHeight ? refreshHeight : hasMove) + 'px',
-    'opacity': (hasMove / refreshHeight)
-  });
+  if (Math.abs(hasMoveY) > Math.abs(hasMoveX) ) {  // 上下滑动
+    theTitleView.setStyle({
+      'height': hasMoveY + 'px',
+      'line-height': (hasMoveY > refreshHeight ? refreshHeight : hasMoveY) + 'px',
+      'opacity': (hasMoveY / refreshHeight)
+    });
+    return false;
+  } else {  // 左右滑动 
+    return true;
+  }
 
-  return false;
 }
 
 function touchend(event, ownerInstance) {
