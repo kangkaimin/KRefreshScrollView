@@ -56,7 +56,7 @@ function touchmove(event, ownerInstance) {
     'opacity': (hasMove / refreshHeight)
   });
 
-  return true;
+  return false;
 }
 
 function touchend(event, ownerInstance) {
