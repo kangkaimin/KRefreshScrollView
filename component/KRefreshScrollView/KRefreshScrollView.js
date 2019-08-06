@@ -35,6 +35,7 @@ Component({
     loadMoreTitle: LOADMORETITLE_LOADING,
     originalMarginTop: 0, // 原始高度 
     loadMoreAble: true,
+    isNoMore: false,
     canRefresh: true,
     refreshHeight: REFRESHVIEW_HEIGHT
 
@@ -50,18 +51,18 @@ Component({
 
       var query = that.createSelectorQuery();
       query.select('#refreshParent').boundingClientRect();
-      query.exec(function(res) {
+      query.exec(function (res) {
         // 配置原始高度
         that.data.originalMarginTop = res[0].top;
       })
     },
-    attached: function() {
-      if (this.data.KHeight > 0) {} else {
+    attached: function () {
+      if (this.data.KHeight > 0) { } else {
         throw new Error('KRefreshScrollView 必须要通过 KHeight 设置一个 >0 的高度，以配合scroll-view使用，否则无法触发scroll-view 的 bindscrolltoupper 和 bindscroll 方法');
       }
     },
-    moved: function() {},
-    detached: function() {},
+    moved: function () { },
+    detached: function () { },
   },
 
   methods: {
@@ -71,7 +72,7 @@ Component({
       var query = that.createSelectorQuery();
 
       query.select('#refreshParent').boundingClientRect();
-      query.exec(function(res) {
+      query.exec(function (res) {
 
         if (res[0].top < that.data.originalMarginTop) {
           return;
@@ -122,21 +123,35 @@ Component({
      */
     // 调用通过 startRefresh 绑定的方法
     _startLoadMore() {
-      if (this.triggerEvent('startLoadMore', {})) {
+
+      if (isNoMore && !loadMoreAble) {
+        return
+      }
+
+      // if (this.triggerEvent('startLoadMore', {})) {
+      //   this.setData({
+      //     loadMoreTitle: LOADMORETITLE_LOADING
+      //   });
+      // } else {
+      //   this.setData({
+      //     loadMoreTitle: LOADMORETITLE_NOMORE
+      //   });
+      // }
+      this.triggerEvent('startLoadMore', {})
+    },
+
+    noMore(isNoMore) {
+      if (isNoMore) {
         this.setData({
-          loadMoreTitle: LOADMORETITLE_LOADING
+          loadMoreTitle: LOADMORETITLE_NOMORE,
+          isNoMore: isNoMore
         });
       } else {
         this.setData({
-          loadMoreTitle: LOADMORETITLE_NOMORE
+          loadMoreTitle: LOADMORETITLE_LOADING,
+          isNoMore: isNoMore
         });
       }
-    },
-
-    noMore() {
-      this.setData({
-        loadMoreTitle: LOADMORETITLE_NOMORE
-      });
     },
 
     canLoadMore(able) {
